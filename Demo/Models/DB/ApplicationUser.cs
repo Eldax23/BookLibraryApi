@@ -5,7 +5,8 @@ namespace Demo.Models.DB
 {
     public class ApplicationUser : IdentityUser
     {
-        [MaxLength(50)]
-        public string Address { get; set; }
+        public Guid CustomerID;
+        public Customer Customer { get; set; }
+
     }
 }
