@@ -35,5 +35,26 @@ namespace Demo.Controllers
                 return BadRequest(ModelState);
             }
         }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody]LoginViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                AuthModel result = await authService.LoginAsync(model);
+                if (result.IsAuthenticated)
+                {
+                    return Ok(result);
+                }
+                else
+                {
+                    return BadRequest(result.Message);
+                }
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
+        }
     }
 }

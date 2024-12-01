@@ -29,9 +29,35 @@ namespace Demo.Services
             throw new NotImplementedException();
         }
 
-        public Task<AuthModel> LoginAsync(LoginViewModel loginViewModel)
+        public async Task<AuthModel> LoginAsync(LoginViewModel loginViewModel)
         {
-            throw new NotImplementedException();
+            ApplicationUser user = await userManager.FindByEmailAsync(loginViewModel.Email);
+            if(user == null)
+            {
+                return new AuthModel() { Message = "Invalid Email" };
+            }
+
+            bool validPassword = await userManager.CheckPasswordAsync(user, loginViewModel.Password);
+            if(!validPassword)
+            {
+                return new AuthModel() { Message = "Password is Invalid" };
+            }
+
+            JwtSecurityToken jwtSecurityToken = await CreateJwtToken(user);
+
+            IList<string>roles = await userManager.GetRolesAsync(user);
+            return new AuthModel()
+            {
+                Message = "Login Successfull.",
+                IsAuthenticated = true,
+                Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
+                Email = loginViewModel.Email,
+                Roles = roles.ToList(),
+                ExpiresOn = jwtSecurityToken.ValidTo,
+            };
+
+
+           
         }
 
         public async Task<AuthModel> RegisterAsync(RegisterViewModel registerViewModel)
