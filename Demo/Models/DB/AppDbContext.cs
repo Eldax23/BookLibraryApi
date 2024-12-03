@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Demo.Models.DB.Entites;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Demo.Models.DB
@@ -15,8 +16,14 @@ namespace Demo.Models.DB
             builder.Entity<ApplicationUser>().HasOne(u => u.Customer)
                 .WithOne(c => c.User)
                 .HasForeignKey<ApplicationUser>( u=> u.CustomerID);
+
+            builder.Entity<BookCopy>().HasOne(bc => bc.Book)
+                .WithMany(b => b.BookCopies)
+                .HasForeignKey(bc => bc.BookId);
+
         }
 
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<Book> Books { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Text;
 using Demo.Helpers;
 using Demo.Models.DB;
+using Demo.Models.DB.Entites;
 using Demo.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;

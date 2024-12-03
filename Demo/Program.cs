@@ -2,6 +2,8 @@
 using System.Text;
 using Demo.Helpers;
 using Demo.Models.DB;
+using Demo.Models.DB.Entites;
+using Demo.Models.DB.Repository.Books;
 using Demo.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -22,6 +24,7 @@ namespace Demo
             builder.Services.Configure<JWT>(builder.Configuration.GetSection("JWT"));
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
             builder.Services.AddScoped<IAuthService , AuthService>();
+            builder.Services.AddScoped<IBooksRepository , BooksRepository>();
             builder.Services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("cs"));
