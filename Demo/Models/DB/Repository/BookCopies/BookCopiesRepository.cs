@@ -30,9 +30,19 @@ namespace Demo.Models.DB.Repository.BookCopies
             await context.SaveChangesAsync();
         }
 
-        public Task DeleteBookCopyAsync(int id)
+        public async Task DeleteBookCopyAsync(int id)
         {
-            throw new NotImplementedException();
+            BookCopy? bookCopy = await context.BookCopies.FirstOrDefaultAsync(b => b.Id == id);
+            if(bookCopy != null)
+            {
+                context.BookCopies.Remove(bookCopy);
+                await context.SaveChangesAsync();
+            }
+            else
+            {
+                throw new Exception("This Book Doesn't exist");
+            }
+
         }
 
         public async Task<List<BookCopyViewModel>> GetAllAsync()
@@ -82,6 +92,7 @@ namespace Demo.Models.DB.Repository.BookCopies
             {
                 oldCopy.BookId = await booksService.GetBookIdByTitle(newModel.BookName);
                 oldCopy.Status = newModel.Status;
+                await context.SaveChangesAsync();
             }
             else
             {

@@ -82,7 +82,7 @@ namespace Demo.Models.DB.Repository.Books
 
         public async Task<int> GetBookIdByTitle(string title)
         {
-            Book? book = await context.Books.FirstOrDefaultAsync(b => b.Title == title);
+            Book? book = await context.Books.FirstOrDefaultAsync(b => b.Title.Trim().ToLower() == title.Trim().ToLower());
             if (book != null)
             {
                 return book.Id;
