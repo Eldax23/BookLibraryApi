@@ -72,6 +72,20 @@ namespace Demo.Controllers
                 return BadRequest(ModelState);
             }
         }
+
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> DeleteBook(int id)
+        {
+            try
+            {
+                await booksRepository.DeleteBookAsync(id);
+                return StatusCode(StatusCodes.Status204NoContent);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
             
             
     }

@@ -8,6 +8,6 @@ namespace Demo.Models.DB.Entites
         public int BookId { get; set; }
         public Book Book { get; set; }
 
-        AvailabiltyStatus Status { get; set; }
+        public string  Status { get; set; }
     }
 }

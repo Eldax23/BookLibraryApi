@@ -11,6 +11,9 @@ namespace Demo.Models.DB.Repository.Books
         Task UpdateBookAsync(int id , BookViewModel model);
         Task DeleteBookAsync(int id);
 
+        Task<int> GetBookIdByTitle(string title);
+        Task<string> GetBookTitleById(int id);
+
         
     }
 }

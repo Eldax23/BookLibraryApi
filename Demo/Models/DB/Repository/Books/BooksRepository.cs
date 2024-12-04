@@ -17,6 +17,7 @@ namespace Demo.Models.DB.Repository.Books
         {
             Book book = new Book()
             {
+                Id = model.Id,
                 Title = model.Title,
                 Author = model.Author,
                 Genre = model.Genre,
@@ -65,6 +66,33 @@ namespace Demo.Models.DB.Repository.Books
             return bookViewModels;
         }
 
+        public async Task<string> GetBookTitleById(int id)
+        {
+            Book? book = await context.Books.FirstOrDefaultAsync(b => b.Id == id);
+
+            if (book != null)
+            {
+                return book.Title;
+            }
+            else
+            {
+                return "Book Doesn't Exist";
+            }
+        }
+
+        public async Task<int> GetBookIdByTitle(string title)
+        {
+            Book? book = await context.Books.FirstOrDefaultAsync(b => b.Title == title);
+            if (book != null)
+            {
+                return book.Id;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+
         public async Task<BookViewModel> GetByIdAsync(int id)
         {
            Book? book = await context.Books.FirstOrDefaultAsync(b => b.Id == id);
@@ -93,6 +121,7 @@ namespace Demo.Models.DB.Repository.Books
             Book? book = await context.Books.FirstOrDefaultAsync(b => b.Id == id);
             if (book != null)
             {
+                id = book.Id;
                 book.Title = model.Title;
                 book.Author = model.Author;
                 book.Genre = model.Genre;
