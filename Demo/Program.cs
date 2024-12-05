@@ -5,6 +5,7 @@ using Demo.Models.DB;
 using Demo.Models.DB.Entites;
 using Demo.Models.DB.Repository.BookCopies;
 using Demo.Models.DB.Repository.Books;
+using Demo.Models.DB.Repository.Borrowings;
 using Demo.Models.DB.Repository.Customers;
 using Demo.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -30,6 +31,7 @@ namespace Demo
             builder.Services.AddScoped<IBooksRepository , BooksRepository>();
             builder.Services.AddScoped<IBookCopiesRepository , BookCopiesRepository>();
             builder.Services.AddScoped<ICustomersRepository , CustomersRepository>();
+            builder.Services.AddScoped<IBorrowingsRepository , BorrowingsRepository>();
 //---------------------------------------------------------------------------
             builder.Services.AddDbContext<AppDbContext>(options =>
             {

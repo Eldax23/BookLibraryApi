@@ -9,5 +9,7 @@ namespace Demo.Models.DB.Entites
         public Book Book { get; set; }
 
         public string  Status { get; set; }
+
+        public ICollection<Borrowing> Borrowings { get; set; }
     }
 }

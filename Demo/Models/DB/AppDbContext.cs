@@ -21,11 +21,24 @@ namespace Demo.Models.DB
                 .WithMany(b => b.BookCopies)
                 .HasForeignKey(bc => bc.BookId);
 
+
+            
+            builder.Entity<Borrowing>().HasOne(b => b.BookCopy)
+                .WithMany(bc => bc.Borrowings)
+                .HasForeignKey(b => b.CopyId);
+
+            builder.Entity<Borrowing>().HasOne(b => b.Customer)
+                .WithMany(c => c.Borrowings)
+                .HasForeignKey(b => b.CustomerId);
+            
+
         }
 
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Book> Books { get; set; }
 
         public DbSet<BookCopy> BookCopies { get; set; }
+
+        public DbSet<Borrowing> Borrowings { get; set; }
     }
 }

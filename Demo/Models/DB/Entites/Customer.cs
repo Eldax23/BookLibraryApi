@@ -15,5 +15,7 @@ namespace Demo.Models.DB.Entites
         public string Address { get; set; }
         public ApplicationUser User { get; set; }
 
+        public ICollection<Borrowing> Borrowings { get; set; }
+
     }
 }
