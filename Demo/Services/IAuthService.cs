@@ -8,6 +8,6 @@ namespace Demo.Services
         Task<AuthModel> RegisterAsync(RegisterViewModel registerViewModel);
         Task<AuthModel> LoginAsync(LoginViewModel loginViewModel);
 
-        Task<string> AddRoleAsync(int UserId , string RoleName);
+        Task<string> AddRoleAsync(AddRoleModel model);
     }
 }

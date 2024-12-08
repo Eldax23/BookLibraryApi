@@ -25,9 +25,35 @@ namespace Demo.Services
             roleManager = _roleManager;
             context = _context;
         }
-        public Task<string> AddRoleAsync(int UserId, string RoleName)
+        public async Task<string> AddRoleAsync(AddRoleModel model)
         {
-            throw new NotImplementedException();
+            ApplicationUser? user = await userManager.FindByIdAsync(model.UserId);
+            if (user is null)
+                return "UserId Doesn't exist.";
+
+            if (!await roleManager.RoleExistsAsync(model.RoleName))
+                return "There is no Role With that Name.";
+
+            if (await userManager.IsInRoleAsync(user, model.RoleName))
+                return "User Already Assigned To This role";
+
+            IdentityRole role = new IdentityRole(model.RoleName);
+            IdentityResult result = await userManager.AddToRoleAsync(user , model.RoleName);
+
+            if (result.Succeeded)
+            {
+                return string.Empty;
+            }
+            else
+            {
+                string errors = string.Empty;
+                foreach (IdentityError error in result.Errors)
+                {
+                    errors += error.Description + " ,";
+                }
+                return errors;
+            }
+
         }
 
         public async Task<AuthModel> LoginAsync(LoginViewModel loginViewModel)

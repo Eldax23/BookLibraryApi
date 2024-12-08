@@ -35,5 +35,26 @@ namespace Demo.Controllers
                 return BadRequest(ModelState); 
             }
         }
+
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> UpdateBorrowing(int id, [FromBody] BorrowingViewModel newVM)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await borrowingsRepository.UpdateBorrowing(id , newVM);
+                    return StatusCode(StatusCodes.Status204NoContent);
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
+        }
     }
 }

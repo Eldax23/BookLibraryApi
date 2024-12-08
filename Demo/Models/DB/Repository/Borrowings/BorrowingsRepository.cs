@@ -105,7 +105,12 @@ namespace Demo.Models.DB.Repository.Borrowings
             Borrowing? borrowing = await context.Borrowings.FirstOrDefaultAsync(b => b.Id == id);
             if (borrowing != null)
             {
-                borrowing = MapVm(newModel);
+                borrowing.BorrowDate = newModel.BorrowDate;
+                borrowing.Status = newModel.Status;
+                borrowing.DueDate = newModel.DueDate;
+                borrowing.CopyId = newModel.CopyId;
+                borrowing.CustomerId = newModel.CustomerId;
+                borrowing.FinesAmount = newModel.FinesAmount;
                 await context.SaveChangesAsync();
 
             }

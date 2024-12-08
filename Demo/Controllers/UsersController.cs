@@ -2,6 +2,7 @@
 using Demo.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Demo.Controllers
 {
@@ -55,6 +56,26 @@ namespace Demo.Controllers
             {
                 return BadRequest(ModelState);
             }
+        }
+
+        [HttpPost("role")]
+        public async Task<IActionResult> AddRole(AddRoleModel model)
+        {
+
+            if (ModelState.IsValid)
+            {
+                string result = await authService.AddRoleAsync(model);
+                if(string.IsNullOrEmpty(result))
+                {
+                    return Ok(model);
+                }
+                else
+                {
+                    return BadRequest(result);
+                }
+            }
+            return BadRequest(ModelState);
+
         }
     }
 }
