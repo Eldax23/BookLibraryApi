@@ -13,7 +13,7 @@ namespace Demo.Models.DB.Repository.Books
 
         Task<int> GetBookIdByTitle(string title);
         Task<string> GetBookTitleById(int id);
-
+        Task<List<BookViewModel>> GetBooksByCategoryAsync(string category);
         
     }
 }

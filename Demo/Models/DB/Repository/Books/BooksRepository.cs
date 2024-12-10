@@ -138,5 +138,25 @@ namespace Demo.Models.DB.Repository.Books
                 throw new Exception("Book Not Found");
             }
         }
+
+        public async Task<List<BookViewModel>> GetBooksByCategoryAsync(string category)
+        {
+            List<BookViewModel> books = await context.Books.Where(b => b.Genre == category).
+                Select(b => new BookViewModel()
+                {
+                    Id = b.Id,
+                    Title = b.Title,
+                    Author = b.Author,
+                    Genre = b.Genre,
+                    Price = b.Price,
+                    NumOfCopies = b.NumOfCopies,
+                    ISBN = b.ISBN,
+                    Image = b.Image,
+                    Publisher = b.Publisher,
+                    PublishedDate = b.PublishedDate,
+                }).ToListAsync();
+
+            return books;
+        }
     }
 }

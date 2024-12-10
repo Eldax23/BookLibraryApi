@@ -41,6 +41,20 @@ namespace Demo.Controllers
 
         }
 
+        [HttpGet("{category:alpha}")]
+        public async Task<IActionResult> GetBookByCategory(string category)
+        {
+            List<BookViewModel> result = await booksRepository.GetBooksByCategoryAsync(category);
+            if (result.Count >= 1)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest("There is no genre with that name.");
+            }
+        }
+
         [HttpPost("add")]
         public async Task<IActionResult> AddBook([FromBody] BookViewModel bookVm)
         {
